@@ -365,6 +365,7 @@ PlayerShip.prototype.gun = function() {
   var cosThet;
   var sinThet;
   var cor = 0.5;
+  var r = 2;
   var duration = 1000;
   for (var i = 0; i < numBullets; i++){
     cosThet = Math.cos(theta);
@@ -374,7 +375,7 @@ PlayerShip.prototype.gun = function() {
     vxS = this.vx + bullVel * (1+this.r) * cosThet;
     vyS = this.vy + bullVel * (1+this.r) * sinThet;
     m = Game.weaponSettings.bulletMass;
-    bullet = new Physical(x,y,r,m,vx,vy,cor,duration);
+    bullet = new Physical(xS,yS,r,m,vxS,vyS,cor,duration);
     Game.projectiles.push();
     theta += dtheta;
   }
