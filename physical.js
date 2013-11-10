@@ -150,7 +150,7 @@ Projectile.prototype.move = function() {
     this.y += this.vy;
 };
 
-Projectile.prototype.die() {
+Projectile.prototype.die = function() {
   this.alive = false;
 };
 
