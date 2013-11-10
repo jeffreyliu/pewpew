@@ -17,6 +17,7 @@ function approxGaus() {
 
 var inputContext = new window.webkitAudioContext();
 var inputAnalyser = null;
+var micStreamSource = null;
 
 function error() {
     alert('Stream generation failed.');
@@ -35,7 +36,7 @@ function getUserMedia(dictionary, callback) {
 };
 
 function getMicStream(stream){
-  var micStreamSource = inputContext.createMediaStreamSource(stream);
+  micStreamSource = inputContext.createMediaStreamSource(stream);
   inputAnalyser = inputContext.createAnalyser();
   inputAnalyser.fftSize = 128;
   micStreamSource.connect( inputAnalyser );
