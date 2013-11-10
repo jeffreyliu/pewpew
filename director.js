@@ -113,6 +113,8 @@ Director.prototype = {
     }
     this.inputDetector.sample(inputAnalyser);
     if(this.inputDetector.beatChance > Game.inputThreshold) {
+      Game.player.basicLaser();
+      Game.player.boom();
       Game.player.gun();
     }
   },

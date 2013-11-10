@@ -23,6 +23,9 @@ Display.prototype.render = function() {
   for (var i = 0; i < Game.actors.length; i++) {
     Game.actors[i].render(this.context);
   }
+  for (var i=0; i < Game.projectiles.length; i++){
+    Game.projectiles[i].render(this.context);
+  }
   for (var k = this.animations.length - 1; k >= 0; k--) {
     this.animations[k].render(this.context);
     if(this.animations[k].completed){

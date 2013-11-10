@@ -40,6 +40,7 @@ Game.input = function() {
   if (32 in Game.keysDown) {
     Game.player.basicLaser();
     Game.player.boom();
+    Game.player.gun();
   }
 };
 

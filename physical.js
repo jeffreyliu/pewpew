@@ -154,6 +154,13 @@ Projectile.prototype.die = function() {
   this.alive = false;
 };
 
+Projectile.prototype.render = function(context) {
+    context.strokeStyle = '#ffffff';
+    context.beginPath();
+    context.arc(this.x, this.y, this.r, 0, tau);
+    context.stroke();
+};
+
 Actor.prototype = new Physical();
 Actor.prototype.constructor = Actor; 
 
