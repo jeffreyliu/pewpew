@@ -89,6 +89,11 @@ Director.prototype = {
         }
       }
     }
+    for(var i = Game.projectiles.length-1; i>=0; i--){
+      if(Game.projectiles[i].alive = false){
+        Game.projectiles.splice(i,1);
+      }
+    }
   },
 
   resolveLogic: function() {

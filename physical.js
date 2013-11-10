@@ -94,7 +94,65 @@ Physical.prototype = {
   },
 };
 
+Projectile.prototype = new Physical();
+Projectile.prototype.constructor = Projectile;
 
+function Projectile(x,y,r,m,vx,vy,cor,duration) {
+  this.startTime = Game.gameTime;
+  this.x = x;
+  this.y = y;
+  this.r = r;
+  this.m = m;
+  this.vx = vx;
+  this.vy = vy;
+  this.alive = true;
+  this.physics = true;
+  this.cor = cor;
+  this.health = 100000;
+  this.duration = duration;
+};
+
+Projectile.prototype.move = function() {
+    // this flag is set to true if the movement is computed by the 
+    // collision code, which means the standard euler integration step 
+    // should be skipped.
+    if (Game.gameTime - this.startTime > this.duration) {
+      this.die();
+    }
+    if (this.physics) {
+      // compute interaction with walls
+      if (this.x + this.vx < this.r) {
+        var t = (this.x - this.r) / this.vx;
+        this.x = this.r;
+        this.vx = -this.cor * this.vx;
+        this.x += Math.abs(1-t) * this.vx; 
+      }
+      if (this.x + this.vx > Game.display.canvas.width - this.r) {
+        var t = (Game.display.canvas.width - this.r - this.x) / this.vx;
+        this.x += t * this.vx;
+        this.vx = -this.cor * this.vx;
+        this.x += (1-t) * this.vx; 
+      }
+      if (this.y + this.vy < this.r) {
+        var t = (this.y - this.r) / this.vy;
+        this.y += t * this.vy;
+        this.vy = -this.cor * this.vy;
+        this.y += (1-t) * this.vy; 
+      }
+      if (this.y + this.vy > Game.display.canvas.height - this.r) {
+        var t = (Game.display.canvas.height - this.r - this.y) / this.vy;
+        this.y += t * this.vy;
+        this.vy = -this.cor * this.vy;
+        this.y += (1-t) * this.vy; 
+      }
+    } 
+    this.x += this.vx;
+    this.y += this.vy;
+}
+
+Projectile.prototype.die() {
+  this.alive = false;
+}
 
 Actor.prototype = new Physical();
 Actor.prototype.constructor = Actor; 
@@ -307,6 +365,7 @@ PlayerShip.prototype.gun = function() {
   var cosThet;
   var sinThet;
   var cor = 0.5;
+  var duration = 1000;
   for (var i = 0; i < numBullets; i++){
     cosThet = Math.cos(theta);
     sinThet = Math.sin(theta);
@@ -315,7 +374,7 @@ PlayerShip.prototype.gun = function() {
     vxS = this.vx + bullVel * (1+this.r) * cosThet;
     vyS = this.vy + bullVel * (1+this.r) * sinThet;
     m = Game.weaponSettings.bulletMass;
-    bullet = new Physical(x,y,r,m,vx,vy,cor);
+    bullet = new Physical(x,y,r,m,vx,vy,cor,duration);
     Game.projectiles.push();
     theta += dtheta;
   }
