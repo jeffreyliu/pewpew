@@ -36,7 +36,7 @@ function getUserMedia(dictionary, callback) {
 
 function getMicStream(stream){
   var micStream = inputContext.createMediaStreamSource(stream);
-  inputAnalyser = inputcontext.createAnalyser();
+  inputAnalyser = inputContext.createAnalyser();
   inputAnalyser.fftSize = 128;
   micStreamSource.connect( inputAnalyser );
 
