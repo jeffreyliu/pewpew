@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+body {
+	background:#FFF;
+}
+
+canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering:-o-crisp-edges;
+    image-rendering:-webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+    zoom: 200%;
+}
