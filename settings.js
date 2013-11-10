@@ -76,7 +76,7 @@ Game = {
     bulletVel: 4,
   },
   beatThreshold: 2.0,
-  inputThreshold: 1.0,
+  inputThreshold: 2.0,
   maxParticles: 5000,
   maxEnemies: 100,
 };
