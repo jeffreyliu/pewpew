@@ -148,11 +148,11 @@ Projectile.prototype.move = function() {
     } 
     this.x += this.vx;
     this.y += this.vy;
-}
+};
 
 Projectile.prototype.die() {
   this.alive = false;
-}
+};
 
 Actor.prototype = new Physical();
 Actor.prototype.constructor = Actor; 
