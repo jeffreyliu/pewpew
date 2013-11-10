@@ -261,7 +261,7 @@ PlayerShip.prototype.render = function(context) {
 };
 
 PlayerShip.prototype.basicLaser = function() {
-  var delta = Math.sin(((Game.gameTime / 50) % tau)) * Game.weaponSettings.laserWidth + 5;
+  var delta = Math.sin(((Game.gameTime / 50) % tau))* 5 + Game.weaponSettings.laserWidth;
   Game.display.animateLaser(this,delta);
   for (i in Game.actors) {
     var actor = Game.actors[i]
@@ -292,3 +292,31 @@ PlayerShip.prototype.boom = function() {
     }
   }
 };
+
+PlayerShip.prototype.gun = function() {
+  var numBullets = Game.weaponSettings.numBullets;
+  var theta = 0;
+  var dtheta = tau/numBullets;
+  var bullVel = Game.weaponSettings.bulletVel;
+  var bullet;
+  var xS;
+  var yS;
+  var vxS;
+  var vyS;
+  var m;
+  var cosThet;
+  var sinThet;
+  var cor = 0.5;
+  for (var i = 0; i < numBullets; i++){
+    cosThet = Math.cos(theta);
+    sinThet = Math.sin(theta);
+    xS = this.x + (1+this.r) * cosThet;
+    yS = this.y + (1+this.r) * sinThet;
+    vxS = this.vx + bullVel * (1+this.r) * cosThet;
+    vyS = this.vy + bullVel * (1+this.r) * sinThet;
+    m = Game.weaponSettings.bulletMass;
+    bullet = new Physical(x,y,r,m,vx,vy,cor);
+    Game.projectiles.push();
+    theta += dtheta;
+  }
+}

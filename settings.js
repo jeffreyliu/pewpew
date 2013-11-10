@@ -72,6 +72,7 @@ Game = {
     boomRadius: 30,
     boomStrokeColor: 'rgba(255,255,255,0.7)',
     boomDamage: 10,
+    numBullets: 7,
     bulletMass: 30,
     bulletVel: 4,
   },

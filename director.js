@@ -17,6 +17,7 @@ Director.prototype = {
     var player = new PlayerShip(Game.playerStat);
     Game.actors.push(player);
     Game.player = Game.actors[Game.actors.length-1];
+    Game.projectiles = [];
   },
 
   adjustDifficulty: function(diffDelta) {
@@ -24,15 +25,16 @@ Director.prototype = {
   },
 
   resolvePhysics: function() {
-    for (var i=0; i < Game.actors.length; i++) {
-      var actor = Game.actors[i];
-      for (var j = i+1; j < Game.actors.length; j++) {
-        var otherPhysical = Game.actors[j];
-        if (actor.hasConflict(otherPhysical)) {
-          actor.resolveConflict(otherPhysical);
+    var physicals = Game.actors.concat(Game.projectiles)
+    for (var i=0; i < physicals.length; i++) {
+      var physical = physicals[i];
+      for (var j = i+1; j < physicals.length; j++) {
+        var otherPhysical = physicals[j];
+        if (physical.hasConflict(otherPhysical)) {
+          physical.resolveConflict(otherPhysical);
         }
       }
-      actor.move();
+      physical.move();
     }
   },
 
@@ -106,7 +108,7 @@ Director.prototype = {
     }
     this.inputDetector.sample(inputAnalyser);
     if(this.inputDetector.beatChance > Game.inputThreshold) {
-      Game.player.basicLaser();
+      Game.player.gun();
     }
   },
 
